@@ -27,10 +27,13 @@ public class CSVReader {
             br = new BufferedReader(new FileReader(_filePath));
             while ((line = br.readLine()) != null) {
 
-                // use comma as separator
+                // For the current CSV row, split all values by the delimiter to find all task performance scores
+                // for the associated employee.
                 String[] employeeData = line.split(cvsSplitBy);
 
+                // For each task performance score:
                 for (int taskIndex = 0; taskIndex < employeeData.length; taskIndex++) {
+                    // Add the score to the employeeDataSet.
                     employeeDataSet.setEmployeeTaskPerformance(employeeIndex, taskIndex, Integer.parseInt(employeeData[taskIndex]));
                 }
 

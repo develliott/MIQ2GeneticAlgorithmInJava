@@ -14,23 +14,21 @@ public class Algorithm {
     public static Population evolvePopulation(Population pop) {
         Population newPopulation = new Population(pop.getSize(), false);
 
+        int elitismOffset = 0;
         // Keep our best individual
         if (elitism) {
             newPopulation.saveIndividual(0, pop.getFittest());
+            elitismOffset = 1;
         }
 
-        // Crossover population
-        int elitismOffset;
-        if (elitism) {
-            elitismOffset = 1;
-        } else {
-            elitismOffset = 0;
-        }
         // Loop over the population size and create new individuals with
         // crossover
         for (int i = elitismOffset; i < pop.getSize(); i++) {
+
+            // indiv1 = The fittest individual from x random individuals in pop, where x = tournamentSize.
             Individual indiv1 = tournamentSelection(pop);
             Individual indiv2 = tournamentSelection(pop);
+
             Individual newIndiv = crossover(indiv1, indiv2);
             newPopulation.saveIndividual(i, newIndiv);
         }
@@ -49,6 +47,7 @@ public class Algorithm {
         // Loop through genes
         for (int i = 0; i < indiv1.getSize(); i++) {
             // Crossover
+            // If the random number is lower or equal to the uniform rate, take the gene from indiv1
             if (Math.random() <= uniformRate) {
                 newSol.setGene(i, indiv1.getGene(i));
             } else {
@@ -62,9 +61,11 @@ public class Algorithm {
     private static void mutate(Individual indiv) {
         // Loop through genes
         for (int i = 0; i < indiv.getSize(); i++) {
+
+            // If the random number is lower or equal to the mutationRate, mutate the gene
             if (Math.random() <= mutationRate) {
                 // Create random gene
-                byte gene = (byte) Math.round(Math.random());
+                int gene = indiv.generateNewGene();
                 indiv.setGene(i, gene);
             }
         }

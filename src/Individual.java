@@ -1,28 +1,25 @@
-//package simpleGa;
-
 import java.util.Random;
 
 public class Individual {
+    static int defaultGeneLength = 10;
 
     private Random _r = new Random();
-
-    static int defaultGeneLength = 10;
     private int[] _genes = new int[defaultGeneLength];
-    // Cache
-    private int fitness = 0;
+    private int _fitness = 0;
 
     // Create a random individual
     public void generateIndividual() {
-
-        int minEmployeeId = 1;
-        int maxEmployeeId = 13;
-
         for (int i = 0; i < getSize(); i++) {
-
-            // Generate a random number between 1 and 13
-            int gene = _r.nextInt((maxEmployeeId - minEmployeeId) + 1) + minEmployeeId;
+            int gene = generateNewGene();
             _genes[i] = gene;
         }
+    }
+
+    public int generateNewGene(){
+        int minEmployeeIndex = 0;
+        int maxEmployeeIndex = 12;
+        // Generate a random number between the minEmployeeIndex and maxEmployeeIndex.
+        return _r.nextInt((maxEmployeeIndex - minEmployeeIndex) + 1) + minEmployeeIndex;
     }
 
     /* Getters and setters */
@@ -37,7 +34,9 @@ public class Individual {
 
     public void setGene(int index, int value) {
         _genes[index] = value;
-        fitness = 0;
+
+        // Reset fitness so it will be computed again when getFitness is called.
+        _fitness = 0;
     }
 
     public int getSize() {
@@ -45,17 +44,22 @@ public class Individual {
     }
 
     public int getFitness() {
-        if (fitness == 0) {
-            fitness = FitnessCalc.getFitness(this);
+        // Check that the fitness has not already been computed.
+        if (_fitness == 0) {
+            _fitness = FitnessCalc.getFitness(this);
         }
-        return fitness;
+        return _fitness;
     }
 
     @Override
     public String toString() {
         String geneString = "";
         for (int i = 0; i < getSize(); i++) {
-            geneString += getGene(i);
+
+            int employeeIndex = getGene(i);
+            int employeeId = employeeIndex + 1;
+
+            geneString += employeeId + " ";
         }
         return geneString;
     }
