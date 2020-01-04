@@ -12,7 +12,7 @@ public class Algorithm {
     
     // Evolve a population
     public static Population evolvePopulation(Population pop) {
-        Population newPopulation = new Population(pop.size(), false);
+        Population newPopulation = new Population(pop.getSize(), false);
 
         // Keep our best individual
         if (elitism) {
@@ -28,7 +28,7 @@ public class Algorithm {
         }
         // Loop over the population size and create new individuals with
         // crossover
-        for (int i = elitismOffset; i < pop.size(); i++) {
+        for (int i = elitismOffset; i < pop.getSize(); i++) {
             Individual indiv1 = tournamentSelection(pop);
             Individual indiv2 = tournamentSelection(pop);
             Individual newIndiv = crossover(indiv1, indiv2);
@@ -36,7 +36,7 @@ public class Algorithm {
         }
 
         // Mutate population
-        for (int i = elitismOffset; i < newPopulation.size(); i++) {
+        for (int i = elitismOffset; i < newPopulation.getSize(); i++) {
             mutate(newPopulation.getIndividual(i));
         }
 
@@ -47,7 +47,7 @@ public class Algorithm {
     private static Individual crossover(Individual indiv1, Individual indiv2) {
         Individual newSol = new Individual();
         // Loop through genes
-        for (int i = 0; i < indiv1.size(); i++) {
+        for (int i = 0; i < indiv1.getSize(); i++) {
             // Crossover
             if (Math.random() <= uniformRate) {
                 newSol.setGene(i, indiv1.getGene(i));
@@ -61,7 +61,7 @@ public class Algorithm {
     // Mutate an individual
     private static void mutate(Individual indiv) {
         // Loop through genes
-        for (int i = 0; i < indiv.size(); i++) {
+        for (int i = 0; i < indiv.getSize(); i++) {
             if (Math.random() <= mutationRate) {
                 // Create random gene
                 byte gene = (byte) Math.round(Math.random());
@@ -76,7 +76,7 @@ public class Algorithm {
         Population tournament = new Population(tournamentSize, false);
         // For each place in the tournament get a random individual
         for (int i = 0; i < tournamentSize; i++) {
-            int randomId = (int) (Math.random() * pop.size());
+            int randomId = (int) (Math.random() * pop.getSize());
             tournament.saveIndividual(i, pop.getIndividual(randomId));
         }
         // Get the fittest

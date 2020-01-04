@@ -17,7 +17,7 @@ public class Individual {
         int minEmployeeId = 1;
         int maxEmployeeId = 13;
 
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < getSize(); i++) {
 
             // Generate a random number between 1 and 13
             int gene = _r.nextInt((maxEmployeeId - minEmployeeId) + 1) + minEmployeeId;
@@ -40,8 +40,7 @@ public class Individual {
         fitness = 0;
     }
 
-    /* Public methods */
-    public int size() {
+    public int getSize() {
         return _genes.length;
     }
 
@@ -55,7 +54,7 @@ public class Individual {
     @Override
     public String toString() {
         String geneString = "";
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < getSize(); i++) {
             geneString += getGene(i);
         }
         return geneString;
