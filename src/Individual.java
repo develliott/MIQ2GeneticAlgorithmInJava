@@ -1,17 +1,27 @@
 //package simpleGa;
 
+import java.util.Random;
+
 public class Individual {
 
-    static int defaultGeneLength = 64;
-    private byte[] genes = new byte[defaultGeneLength];
+    private Random _r = new Random();
+
+    static int defaultGeneLength = 10;
+    private int[] _genes = new int[defaultGeneLength];
     // Cache
     private int fitness = 0;
 
     // Create a random individual
     public void generateIndividual() {
+
+        int minEmployeeId = 1;
+        int maxEmployeeId = 13;
+
         for (int i = 0; i < size(); i++) {
-            byte gene = (byte) Math.round(Math.random());
-            genes[i] = gene;
+
+            // Generate a random number between 1 and 13
+            int gene = _r.nextInt((maxEmployeeId - minEmployeeId) + 1) + minEmployeeId;
+            _genes[i] = gene;
         }
     }
 
@@ -21,18 +31,18 @@ public class Individual {
         defaultGeneLength = length;
     }
     
-    public byte getGene(int index) {
-        return genes[index];
+    public int getGene(int index) {
+        return _genes[index];
     }
 
-    public void setGene(int index, byte value) {
-        genes[index] = value;
+    public void setGene(int index, int value) {
+        _genes[index] = value;
         fitness = 0;
     }
 
     /* Public methods */
     public int size() {
-        return genes.length;
+        return _genes.length;
     }
 
     public int getFitness() {
