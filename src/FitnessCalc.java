@@ -1,8 +1,6 @@
-//package simpleGa;
-
 public class FitnessCalc {
 
-    // Calculate individuals fittness by aggregating each employee's performance scores
+    // Calculate individuals fitness by aggregating each assigned employee's performance scores
     static int getFitness(Individual individual) {
         int fitness = 0;
         // Loop through the individuals genes and add each employee's performance score to the fitness.

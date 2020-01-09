@@ -2,11 +2,11 @@ public class GA {
 
     public static void main(String[] args) {
 
-        // Create a mechanism for looking up performance scores.
+        // Initialise a mechanism for looking up performance scores.
         CSVReader csvReader = new CSVReader(System.getProperty("user.dir") + "/src/data.csv");
         EmployeeDataSet employeeDataSet = csvReader.parseDataIntoEmployeeDataSet();
 
-        // Create an initial population
+        // Create an initial population of 50 individuals
         Population myPop = new Population(50, true);
 //
         // Evolve our population until we reach an optimum solution
@@ -15,9 +15,9 @@ public class GA {
 
         int globalHighestScore = 0;
         int generationsWithNoChangeToScore = 0;
-        int maxGenerationsWithNoChangeToScore = 100;
+        int maxGenerationsWithNoChangeToScore = 500;
 
-        // Test maxGenerations amount of generations, unless the score hasn't changed for maxGenerationsWithNoChangeToScore.
+        // Simulate 'maxGenerations' amount of generations, unless the score hasn't changed for 'maxGenerationsWithNoChangeToScore'.
         while (generationCount < maxGenerations && generationsWithNoChangeToScore < maxGenerationsWithNoChangeToScore) {
             generationCount++;
 
@@ -26,15 +26,17 @@ public class GA {
 
             // If the score hasn't improved since the last generation:
             if (fittestScoreInPop == globalHighestScore){
+                //Increment the generations with no change to score by 1.
                 generationsWithNoChangeToScore++;
             }
             else{
-                // Reset the count of generations where the score did not change.
+                // Reset the count of generations with no change to score to 0.
                 generationsWithNoChangeToScore = 0;
             }
 
-            // If the current fittest score is more than the global highest score, update the global highest score.
+            // If the current fittest score is more than the global highest score,
             if (fittestScoreInPop > globalHighestScore){
+                // update the global highest score with the current fittest score.
                 globalHighestScore = fittestScoreInPop;
             }
 

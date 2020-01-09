@@ -28,9 +28,11 @@ public class Population {
 
     public Individual getFittest() {
         Individual fittest = _individuals[0];
+        // Offset the index because we already have index 0 stored in the 'fittest' variable.
+        int indexOffset = 1;
 
         // Loop through individuals to find fittest
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = indexOffset; i < getSize(); i++) {
             // If the current element has a higher fitness score than the current 'fittest' ->
             if (fittest.getFitness() <= getIndividual(i).getFitness()) {
                 // -> assign it as the the current 'fittest'.
