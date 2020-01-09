@@ -1,5 +1,3 @@
-//package simpleGa;
-
 public class Population {
 
     private Individual[] _individuals;

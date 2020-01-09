@@ -17,6 +17,7 @@ public class Individual {
         }
     }
 
+    // Return an employeeIndex that does not currently exist in the _genes array.
     public int generateNewGene(){
         int minEmployeeIndex = 0;
         int maxEmployeeIndex = 12;
@@ -27,42 +28,40 @@ public class Individual {
         // Check if the employee has already been assigned,
         // to ensure that each employee can only be assigned 1 task.
         if (employeeIsAlreadyAssigned(employeeIndex)){
+            // recursively loop until one is found.
             employeeIndex = generateNewGene();
         }
         return employeeIndex;
     }
 
+    // Return a boolean indicating if the employee has already been assigned.
     public boolean employeeIsAlreadyAssigned(int employeeIndex){
-        // Return a boolean indicating if the employee has already been assigned.
         return IntStream.of(_genes).anyMatch(x -> x == employeeIndex);
     }
 
     // Set genes to a value that isn't a valid employee index.
     // This is because the _genes array is initialised to 0's by default.
-    // So, this prevents the employeeIsAlreadyAssigned() check returning true when trying to assign employeeIndex 0.
+    // This method prevents the employeeIsAlreadyAssigned() check returning true when trying to assign employeeIndex 0.
     public void initialiseGenes(){
         for (int i = 0; i < getSize(); i++) {
             _genes[i] = 9999;
         }
     }
 
-    /* Getters and setters */
-    // Use this if you want to create individuals with different gene lengths
-    public static void setDefaultGeneLength(int length) {
-        defaultGeneLength = length;
-    }
-    
+    // Return the value of the gene at the given index
     public int getGene(int index) {
         return _genes[index];
     }
 
+    // Set the value of the gene at the given index
     public void setGene(int index, int value) {
         _genes[index] = value;
 
-        // Reset fitness so it will be computed again when getFitness is called.
+        // Reset fitness so it will be computed again when getFitness() is called.
         _fitness = 0;
     }
 
+    // Return the size of the chromosome.
     public int getSize() {
         return _genes.length;
     }
@@ -86,7 +85,7 @@ public class Individual {
             geneString += employeeId + " ";
         }
 
-        // Return the string as separated Employee IDs.
+        // Return the string as Employee IDs.
         return geneString;
     }
 }

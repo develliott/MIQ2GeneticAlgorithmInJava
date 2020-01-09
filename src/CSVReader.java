@@ -13,7 +13,7 @@ public class CSVReader {
 
     public EmployeeDataSet parseDataIntoEmployeeDataSet() {
 
-        // Todo: Refactor the hardcoded amounts.
+        // Todo: Refactor the hardcoded amounts to be dynamically inferred from the CSV file.
         EmployeeDataSet employeeDataSet = new EmployeeDataSet(13, 10);
 
         BufferedReader br = null;
@@ -31,9 +31,9 @@ public class CSVReader {
                 // for the associated employee.
                 String[] employeeData = line.split(cvsSplitBy);
 
-                // For each task performance score:
+                // For each task performance score ->
                 for (int taskIndex = 0; taskIndex < employeeData.length; taskIndex++) {
-                    // Add the score to the employeeDataSet.
+                    // -> Add the score to the employeeDataSet.
                     employeeDataSet.setEmployeeTaskPerformance(employeeIndex, taskIndex, Integer.parseInt(employeeData[taskIndex]));
                 }
 

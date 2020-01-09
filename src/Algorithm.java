@@ -15,8 +15,8 @@ public class Algorithm {
         Population newPopulation = new Population(pop.getSize(), false);
 
         int elitismOffset = 0;
-        // Keep our best individual
         if (elitism) {
+            // Keep our best individual
             newPopulation.saveIndividual(0, pop.getFittest());
             elitismOffset = 1;
         }
@@ -46,6 +46,8 @@ public class Algorithm {
     // Crossover individuals
     private static Individual crossover(Individual indiv1, Individual indiv2) {
         Individual newSol = new Individual();
+
+        // Set genes to a value that isn't a valid employee index.
         newSol.initialiseGenes();
 
         // Loop through genes
@@ -56,6 +58,7 @@ public class Algorithm {
             int newGene = 9999;
 
             // If the new employee is already assigned, find a new employee
+            // This prevents an employee being assigned to more than 1 task.
             while (newSol.employeeIsAlreadyAssigned(newGene)){
 
                 // Randomly choose to take a gene from indiv1 or indiv2
@@ -70,6 +73,7 @@ public class Algorithm {
                 // then a conflict will always occur and the while loop will never terminate.
                 if (newSol.employeeIsAlreadyAssigned(indiv1.getGene(i)) && newSol.employeeIsAlreadyAssigned(indiv2.getGene(i))){
                     // So generate a new gene
+                    // Note: This is has the potential of introducing new information within the crossover operator.
                     newGene = newSol.generateNewGene();
                 }
             }
@@ -89,6 +93,7 @@ public class Algorithm {
                 // Set newGene to the current gene to activate the while loop below.
                 int newGene = indiv.getGene(i);
                 // If the new employee is already assigned, find a new employee
+                // This prevents an employee being assigned to more than 1 task.
                 while(indiv.employeeIsAlreadyAssigned(newGene)) {
                     // Create new gene
                     newGene = indiv.generateNewGene();

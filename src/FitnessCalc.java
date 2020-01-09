@@ -6,8 +6,8 @@ public class FitnessCalc {
         // Loop through the individuals genes and add each employee's performance score to the fitness.
         for (int i = 0; i < individual.getSize(); i++) {
 
-            int currentTaskIndex = i;
             int currentEmployeeIndex = individual.getGene(i);
+            int currentTaskIndex = i;
 
             int performanceScore = EmployeeDataSet.getEmployeePerformanceScore(currentEmployeeIndex, currentTaskIndex);
 
